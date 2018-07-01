@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,27 +20,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/wallpaper"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:contentDescription="@string/papel_de_parede"
             android:focusable="auto"
             android:scaleType="centerCrop"
-            android:src="@drawable/flower_wallpaper" />
+            android:src="@drawable/flower_wallpaper" />-->
 
         <LinearLayout
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/wallpaper"
+            app:layout_constraintTop_toTopOf="parent"
             android:elevation="10dp"
             android:fadingEdge="horizontal|vertical"
             android:orientation="vertical"
             android:padding="8dp"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:background="@color/colorPrimaryDark">
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,7 +53,7 @@
                 android:fadingEdgeLength="4sp"
                 android:fontFamily="lobster"
                 android:text="@string/name_test"
-                android:textColor="#555555"
+                android:textColor="@color/onPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -153,10 +155,10 @@
             android:layout_below="@+id/email"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="31dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:elevation="20dp"
             android:text="SAIR"
-            android:textColor="@android:color/white"
+            android:textColor="@color/onPrimary"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -171,4 +173,4 @@
 
     </android.support.design.widget.BottomNavigationView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

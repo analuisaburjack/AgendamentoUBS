@@ -1,4 +1,4 @@
-/*package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
+package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ListOfConsults_GsonJsonParsing extends AppCompatActivity {
 
-    private String TAG = ListOfConsults_GsonJsonParsing.class.getSimpleName();
+    /*private String TAG = ListOfConsults_GsonJsonParsing.class.getSimpleName();
 
     private RecyclerView rv;
 
@@ -107,5 +107,5 @@ public class ListOfConsults_GsonJsonParsing extends AppCompatActivity {
 
         return cpnlst;
     }
-}
 }*/
+}
