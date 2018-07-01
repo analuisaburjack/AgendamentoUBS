@@ -24,7 +24,7 @@ public class Day {
         return consults;
     }
 
-    public void addConsult(Consult consult) {
-        this.consults.add(consult);
+    public void setConsults(ArrayList<Consult> consults) {
+        this.consults = consults;
     }
 }
