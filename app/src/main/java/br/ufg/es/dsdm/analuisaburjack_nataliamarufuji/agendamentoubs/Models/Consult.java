@@ -6,8 +6,10 @@ import java.util.Locale;
 
 public class Consult {
 
-    private boolean booked;
-    private String time;
+    private String bookedPhrase;
+    private String hour;
+    
+    private Boolean booked;
 
     private Pacient pacient = new Pacient();
 
@@ -15,26 +17,40 @@ public class Consult {
         setBooked(false);
     }
 
-    Consult(String time, Pacient pacient){
-        setBooked(true);
-        setTime(time);
+    Consult(String hour, Pacient pacient){
+        setbookedPhrase(true);
+        sethour(hour);
         setPacient(pacient);
     }
 
-    public boolean isBooked() {
+    public Boolean isBooked() {
         return booked;
     }
 
-    public void setBooked(boolean booked) {
+    public void setBooked(Boolean booked) {
         this.booked = booked;
     }
 
-    public String getTime() {
-        return time;
+    public String getBookedPhrase() {
+        return bookedPhrase;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setbookedPhrase(boolean booked) {
+        if (booked) {
+            this.bookedPhrase = "Paciente:";
+
+        } else if (!booked) {
+            this.bookedPhrase = "Horário Disponível";
+
+        }
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void sethour(String hour) {
+        this.hour = hour;
     }
 
     public Pacient getPacient() {
