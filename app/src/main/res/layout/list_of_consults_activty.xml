@@ -7,7 +7,7 @@
     tools:context="br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.ListOfConsults_GsonJsonParsing">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/coupons_rv"
+        android:id="@+id/list_of_consults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     

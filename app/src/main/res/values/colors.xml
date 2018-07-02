@@ -13,8 +13,12 @@
     <color name="error">#A12100</color>
 
     <color name="onPrimary">#FFFFFF</color>
-    <color name="onSecondary">#FFFFFF</color>
+    <color name="onAccent">#FFFFFF</color>
     <color name="onBackground">#000000</color>
     <color name="onSurface">#000000</color>
     <color name="onError">#FFFFFF</color>
+
+    <color name="pressed">#33704B</color>
+    <color name="disabled">#CCCCCC</color>
+    <color name="norm">#85BDA6</color>
 </resources>
