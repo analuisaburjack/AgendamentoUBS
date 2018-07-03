@@ -1,10 +1,4 @@
-package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.Models;
-
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
-import java.util.Date;
-import java.util.Locale;
+package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
 
 /**
  * Created by analu on 25/06/2018.

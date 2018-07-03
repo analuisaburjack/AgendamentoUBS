@@ -1,4 +1,4 @@
-package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.Models;
+package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -14,9 +14,8 @@ public class Person {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(Date date) {
-        this.date_of_birth = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH)
-                .format(date);
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
     public String getName() {
