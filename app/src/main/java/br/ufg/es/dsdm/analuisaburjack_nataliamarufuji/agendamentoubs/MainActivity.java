@@ -16,6 +16,7 @@
 
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -31,6 +32,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskList;
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private RecyclerViewAdapter adapter;
     private DividerItemDecoration mDividerItemDecoration;
+    private String Date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //DatePicker
+        this.showDatePickerDialog();
+
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -62,11 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setLayoutManager(layoutManager);
-        requestJson(MainActivity.this, "26/06/2018");
+        requestJson(MainActivity.this, getDate()/*"26/06/2018"*/);
 
-     // Create Navigation drawer and inlfate layout
+        // Create Navigation drawer and inlfate layout
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+
+
 
         // Adding menu icon to Toolbar
         ActionBar supportActionBar = getSupportActionBar();
@@ -98,9 +110,69 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public String generateDateString(int year, int month, int day){
+        StringBuffer strBuf = new StringBuffer();
+        strBuf.append(day);
+        strBuf.append("/");
+        strBuf.append(month+1);
+        strBuf.append("/");
+        strBuf.append(year);
+
+        return strBuf.toString();
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
     public void requestJson(Context context, String date){
         Day day = new Day(date);
         WebTaskList webTaskList = new WebTaskList(context, day);
+    }
+
+
+
+    // Create and show a DatePickerDialog when click button.
+    private void showDatePickerDialog()
+    {
+        // Get open DatePickerDialog button.
+        final Button btn = (Button)findViewById(R.id.datePickerDialogButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View view) {
+                // Create a new OnDateSetListener instance. This listener will be invoked when user click ok button in DatePickerDialog.
+                DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        btn.setText(generateDateString(year, month, dayOfMonth).toString());
+                        setDate(generateDateString(year, month, dayOfMonth).toString());
+                    }
+                };
+
+                // Get current year, month and day.
+                Calendar now = Calendar.getInstance();
+                int year = now.get(java.util.Calendar.YEAR);
+                int month = now.get(java.util.Calendar.MONTH);
+                int day = now.get(java.util.Calendar.DAY_OF_MONTH);
+
+                setDate(generateDateString(year, month, day));
+
+                // Create the new DatePickerDialog instance.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, onDateSetListener, year, month, day);
+
+                // Set dialog icon and title.
+                //datePickerDialog.setIcon(R.drawable.if_snowman);
+                //datePickerDialog.setTitle("Please select date.");
+
+                // Popup the dialog.
+                datePickerDialog.show();
+            }
+        });
     }
 
     @Override

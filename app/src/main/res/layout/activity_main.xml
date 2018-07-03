@@ -19,13 +19,22 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="date"/>
+                app:title="date">
 
+                <Button
+                    android:id="@+id/datePickerDialogButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl"
+                    android:text="textButton" />
+
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,8 +45,9 @@
             android:paddingBottom="@dimen/md_keylines"
             android:paddingTop="@dimen/md_keylines"
             android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
