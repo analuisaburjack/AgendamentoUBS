@@ -95,6 +95,6 @@ public class WebTaskList extends WebTaskBase{
 
     @Override
     WebTaskBase.HttpMethod getMethod() {
-        return WebTaskBase.HttpMethod.PUT;
+        return WebTaskBase.HttpMethod.GET;
     }
 }
