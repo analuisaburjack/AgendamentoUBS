@@ -32,8 +32,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.ConsultList_Test;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
-//import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter adapter;
     private DividerItemDecoration mDividerItemDecoration;
     private String Date;
+    private ConsultList_Test test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
         //DatePicker
         this.showDatePickerDialog();
 
+        test = new ConsultList_Test();
+
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerViewAdapter(requestList(MainActivity.this, getDate()));
+        adapter = new RecyclerViewAdapter(test.getList()/*requestList(MainActivity.this, getDate())*/);
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
     }
 

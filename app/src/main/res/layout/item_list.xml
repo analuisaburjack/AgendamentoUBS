@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/md_keylines"
         android:layout_toRightOf="@+id/list_hour"
-        tools:text="@string/item_title"
+        tools:text="text"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/article_subheading"
         android:textAlignment="gravity"/>
@@ -36,7 +36,7 @@
         android:textColor="@color/medium_grey"
         android:ellipsize="end"
         android:singleLine="true"
-        tools:text="@string/item_desc"
+        tools:text="text"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/list_body" />
 </RelativeLayout>

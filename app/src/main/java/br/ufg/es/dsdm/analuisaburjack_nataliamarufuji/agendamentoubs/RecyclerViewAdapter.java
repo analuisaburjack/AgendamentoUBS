@@ -1,6 +1,7 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class RecyclerViewAdapter extends
         public TextView hour;
         public TextView pacientName;
         public TextView pacientSus;
+        public Boolean booked;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -34,6 +36,26 @@ public class RecyclerViewAdapter extends
             hour = (TextView) itemView.findViewById(R.id.list_hour);
             pacientName = (TextView) itemView.findViewById(R.id.list_pacient);
             pacientSus = (TextView) itemView.findViewById(R.id.list_sus);
+
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent;
+
+                    if(booked){
+                        intent = new Intent(context, DetailActivity.class);
+                        intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
+                    }else{
+                        intent = new Intent(context, BookingActivity.class);
+                        intent.putExtra(BookingActivity.EXTRA_POSITION, getAdapterPosition());
+                    }
+                    context.startActivity(intent);
+                }
+            });
+
         }
     }
 
@@ -75,7 +97,7 @@ public class RecyclerViewAdapter extends
         TextView susView = viewHolder.pacientSus;
         susView.setText(consult.getPacientSus());
 
-
+        viewHolder.booked = consult.isBooked();
     }
 
     // Returns the total count of items in the list
@@ -83,4 +105,5 @@ public class RecyclerViewAdapter extends
     public int getItemCount() {
         return mConsults.size();
     }
+
 }
