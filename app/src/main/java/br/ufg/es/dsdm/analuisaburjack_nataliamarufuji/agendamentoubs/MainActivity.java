@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    Day day = new Day("");
+    day.teste();
+    for(int i = 0; i < day.listaTeste.size(); i++){
+        day.listaTeste.get(i);
+    }
+
 
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
