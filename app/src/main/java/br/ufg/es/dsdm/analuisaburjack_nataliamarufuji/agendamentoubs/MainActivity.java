@@ -19,31 +19,24 @@ package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+import java.util.List;
 
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskList;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
+//import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -57,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    Day day = new Day("");
-    day.teste();
-    for(int i = 0; i < day.listaTeste.size(); i++){
-        day.listaTeste.get(i);
-    }
-
 
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,46 +61,12 @@ public class MainActivity extends AppCompatActivity {
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
+        adapter = new RecyclerViewAdapter(requestList(MainActivity.this, getDate()));
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setLayoutManager(layoutManager);
-        requestJson(MainActivity.this, getDate()/*"26/06/2018"*/);
-
-        // Create Navigation drawer and inlfate layout
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-
-
-
-        // Adding menu icon to Toolbar
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            VectorDrawableCompat indicator =
-                    VectorDrawableCompat.create(getResources(), R.drawable.ic_email, getTheme());
-            indicator.setTint(ResourcesCompat.getColor(getResources(),R.color.white,getTheme()));
-            supportActionBar.setHomeAsUpIndicator(indicator);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // Set behavior of Navigation drawer
-        navigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                // This method will trigger on item Click of navigation menu
-                @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    // Set item in checked state
-                    menuItem.setChecked(true);
-
-                    // TODO: handle navigation
-
-                    // Closing drawer on item click
-                    mDrawerLayout.closeDrawers();
-                    return true;
-                }
-            });
-
-
+        recyclerView.setAdapter(adapter);
     }
 
     public String generateDateString(int year, int month, int day){
@@ -135,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         Date = date;
     }
 
-    public void requestJson(Context context, String date){
-        Day day = new Day(date);
-        WebTaskList webTaskList = new WebTaskList(context, day);
+    public List<Consult> requestList(Context context, String date){
+        WebTaskConsultList webTaskList = new WebTaskConsultList(context, date);
+        return webTaskList.getConsultList();
     }
 
 
@@ -179,28 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == android.R.id.home) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
 

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
-
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -105,7 +104,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         if(error!= null){
-            handleError();
+           handleError();
         }else{
             try {
                 JSONObject responseJSON = new JSONObject(responseString);
@@ -158,3 +157,4 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
         GET,POST,PATCH,DELETE,PUT;
     }
 }
+
