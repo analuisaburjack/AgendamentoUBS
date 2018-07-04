@@ -67,7 +67,7 @@
                 android:layout_marginBottom="@dimen/md_keylines" />
 
             <EditText
-                android:id="@+id/details_pacient"
+                android:id="@+id/booking_pacient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Insira o nome do paciente" />
@@ -82,7 +82,7 @@
                 android:layout_marginTop="@dimen/md_keylines" />
 
             <EditText
-                android:id="@+id/details_birth"
+                android:id="@+id/booking_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Insira a data de nascimento do paciente" />
@@ -97,7 +97,7 @@
                 android:layout_marginTop="@dimen/md_keylines" />
 
                 <EditText
-                android:id="@+id/details_phone"
+                android:id="@+id/booking_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Insira o telefone principal do paciente" />
@@ -112,14 +112,17 @@
                 android:layout_marginTop="@dimen/md_keylines" />
 
             <EditText
-                android:id="@+id/details_sus"
+                android:id="@+id/booking_sus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Insira o número do Cartão SUS do paciente" />
-            
+
             <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:id="@+id/book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AGENDAR CONSULTA"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

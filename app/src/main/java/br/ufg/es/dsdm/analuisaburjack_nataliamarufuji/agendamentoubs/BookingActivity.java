@@ -20,17 +20,33 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
  */
 public class BookingActivity extends AppCompatActivity {
+    private List<Consult> mConsults;
 
     public static final String EXTRA_POSITION = "position";
+
+    public BookingActivity(){}
+
+    public BookingActivity(List<Consult> consults){
+        this.mConsults = consults;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,24 +60,34 @@ public class BookingActivity extends AppCompatActivity {
         // Set title of Detail page
         // collapsingToolbar.setTitle(getString(R.string.item_title));
 
-        int postion = getIntent().getIntExtra(EXTRA_POSITION, 0);
+        final int postion = getIntent().getIntExtra(EXTRA_POSITION, 0);
         String hour = mConsults.get(postion).getHour();
         collapsingToolbar.setTitle(hour);
 
-        String pacientName = mConsults.get(postion).getPacientName();
-        TextView pacientDetail = (TextView) findViewById(R.id.details_pacient);
-        pacientDetail.setText(pacientName);
+        EditText nameEdit = (EditText) findViewById(R.id.booking_pacient);
+        final String nameValue = nameEdit.getText().toString();
 
-        String pacientBirth = mConsults.get(postion).getPacientBirth();
-        TextView birthDetail = (TextView) findViewById(R.id.details_birth);
-        birthDetail.setText(pacientBirth);
+        EditText birthEdit = (EditText) findViewById(R.id.booking_birth);
+        final String birthValue = birthEdit.getText().toString();
 
-        String pacientPhone = mConsults.get(postion).getPacientPhone();
-        TextView phoneDetail = (TextView) findViewById(R.id.details_phone);
-        phoneDetail.setText(pacientPhone);
+        EditText phoneEdit = (EditText) findViewById(R.id.booking_phone);
+        final String phoneValue = phoneEdit.getText().toString();
 
-        String pacientSUS = mConsults.get(postion).getPacientName();
-        TextView susDetail = (TextView) findViewById(R.id.details_sus);
-        susDetail.setText(pacientSUS);
+        EditText susEdit = (EditText) findViewById(R.id.booking_sus);
+        final String susValue = susEdit.getText().toString();
+
+        Button button = (Button) findViewById(R.id.book);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mConsults.get(postion).setPacientName(nameValue);
+                mConsults.get(postion).setPacientBirth(birthValue);
+                mConsults.get(postion).setPacientPhone(phoneValue);
+                mConsults.get(postion).setPacientSus(susValue);
+
+                Snackbar.make(v, "Consulta agendada com sucesso!",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
+
 }

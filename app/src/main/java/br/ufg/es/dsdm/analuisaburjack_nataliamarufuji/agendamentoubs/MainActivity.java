@@ -123,7 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 int month = now.get(java.util.Calendar.MONTH);
                 int day = now.get(java.util.Calendar.DAY_OF_MONTH);
 
-                setDate(generateDateString(year, month, day));
+                String str = generateDateString(year, month, day);
+                setDate(str);
+                btn.setText(str);
+
 
                 // Create the new DatePickerDialog instance.
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, onDateSetListener, year, month, day);

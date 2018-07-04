@@ -39,6 +39,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "position";
 
+    public DetailActivity(){}
+
     public DetailActivity(ArrayList<Consult> consults){
         this.mConsults = consults;
     }

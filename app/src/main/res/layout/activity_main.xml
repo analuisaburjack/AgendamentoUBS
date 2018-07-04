@@ -19,14 +19,16 @@
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="date">
+                app:title="">
 
                 <Button
                     android:id="@+id/datePickerDialogButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="?attr/colorPrimary"
                     android:layoutDirection="rtl"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:text="textButton" />
 
             </android.support.v7.widget.Toolbar>
