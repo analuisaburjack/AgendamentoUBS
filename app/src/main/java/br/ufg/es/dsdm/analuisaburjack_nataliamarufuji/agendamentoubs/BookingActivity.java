@@ -33,19 +33,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
  */
 public class BookingActivity extends AppCompatActivity {
-    private List<Consult> mConsults;
+    private Day day;
 
     public static final String EXTRA_POSITION = "position";
 
     public BookingActivity(){}
 
-    public BookingActivity(List<Consult> consults){
-        this.mConsults = consults;
+    public BookingActivity(Day day){
+        this.day = day;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class BookingActivity extends AppCompatActivity {
         // collapsingToolbar.setTitle(getString(R.string.item_title));
 
         final int postion = getIntent().getIntExtra(EXTRA_POSITION, 0);
-        String hour = mConsults.get(postion).getHour();
+        String hour = day.getConsults().get(postion).getHour();
         collapsingToolbar.setTitle(hour);
 
         EditText nameEdit = (EditText) findViewById(R.id.booking_pacient);
@@ -79,10 +80,10 @@ public class BookingActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.book);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mConsults.get(postion).setPacientName(nameValue);
-                mConsults.get(postion).setPacientBirth(birthValue);
-                mConsults.get(postion).setPacientPhone(phoneValue);
-                mConsults.get(postion).setPacientSus(susValue);
+                day.getConsults().get(postion).setPacientName(nameValue);
+                day.getConsults().get(postion).setPacientBirth(birthValue);
+                day.getConsults().get(postion).setPacientPhone(phoneValue);
+                day.getConsults().get(postion).setPacientSus(susValue);
 
                 Snackbar.make(v, "Consulta agendada com sucesso!",
                         Snackbar.LENGTH_LONG).show();

@@ -1,11 +1,17 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity(tableName = "day")
 public class Day {
 
+    @PrimaryKey
+    @ColumnInfo(name = "date")
     private String date;
 
     public List<String> listaTeste;

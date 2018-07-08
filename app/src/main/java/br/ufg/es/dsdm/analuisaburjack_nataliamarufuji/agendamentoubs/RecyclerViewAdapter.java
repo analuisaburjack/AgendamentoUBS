@@ -23,9 +23,9 @@ public class RecyclerViewAdapter extends
         // for any view that will be set as you render a row
         public TextView hour;
         public TextView pacientName;
+        public TextView pacientBirth;
+        public TextView pacientPhone;
         public TextView pacientSus;
-        public Boolean booked;
-
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -45,13 +45,8 @@ public class RecyclerViewAdapter extends
                     Context context = v.getContext();
                     Intent intent;
 
-                    if(booked){
-                        intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-                    }else{
-                        intent = new Intent(context, BookingActivity.class);
-                        intent.putExtra(BookingActivity.EXTRA_POSITION, getAdapterPosition());
-                    }
+                    intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
                     context.startActivity(intent);
                 }
             });
@@ -60,11 +55,13 @@ public class RecyclerViewAdapter extends
     }
 
     // Store a member variable for the contacts
-    private List<Consult> mConsults;
+    //private Day day;
+    private List<Consult> consultList;
+
 
     // Pass in the contact array into the constructor
-    public RecyclerViewAdapter(List<Consult> consults) {
-        mConsults = consults;
+    public RecyclerViewAdapter(List<Consult> consultList) {
+        this.consultList = consultList;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -85,7 +82,7 @@ public class RecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        Consult consult = mConsults.get(position);
+        Consult consult = consultList.get(position);
 
         // Set item views based on your views and data model
         TextView hourView = viewHolder.hour;
@@ -94,16 +91,20 @@ public class RecyclerViewAdapter extends
         TextView nameView = viewHolder.pacientName;
         nameView.setText(consult.getPacientName());
 
+        TextView birthView = viewHolder.pacientBirth;
+        birthView.setText(consult.getPacientBirth());
+
+        TextView phoneView = viewHolder.pacientPhone;
+        phoneView.setText(consult.getPacientPhone());
+
         TextView susView = viewHolder.pacientSus;
         susView.setText(consult.getPacientSus());
-
-        viewHolder.booked = consult.isBooked();
-    }
+}
 
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return mConsults.size();
+        return consultList.size();
     }
 
 }

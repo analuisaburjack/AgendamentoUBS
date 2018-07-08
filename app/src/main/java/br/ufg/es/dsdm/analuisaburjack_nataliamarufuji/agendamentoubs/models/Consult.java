@@ -1,28 +1,62 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "consults",
+        foreignKeys = @ForeignKey(entity = Day.class,
+        parentColumns = "date",
+        childColumns = "consult_date"
+        ))
+
 public class Consult {
-    //@SerializedName("list_hour")
+    @PrimaryKey
+    @ColumnInfo(name = "consult_hour")
     private String hour;
+
+    @ColumnInfo(name = "consult_date")
+    private String date;
+
+    @ColumnInfo(name = "isBooked")
     private Boolean booked;
+
+    @ColumnInfo(name = "pacient_name")
     private String pacientName;
+
+    @ColumnInfo(name = "pacient_birth")
     private String pacientBirth;
+
+    @ColumnInfo(name = "pacient_phone")
     private String pacientPhone;
+
+    @ColumnInfo(name = "pacient_sus")
     private String pacientSus;
 
     public Consult(){
         setBooked(false);
     }
 
-    public Consult(String hour, Boolean booked, String name, String birth,
+    public Consult(String date, String hour, Boolean booked, String name, String birth,
                    String phone, String sus){
         setBooked(booked);
+        setDate(date);
         setHour(hour);
         setPacientName(name);
         setPacientBirth(birth);
         setPacientPhone(phone);
         setPacientSus(sus);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setHour(String hour) {

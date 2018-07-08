@@ -11,13 +11,14 @@ public class ConsultList_Test {
 
     public void setListData(){
         for (int i = 0; i < length; i++){
-            Consult consult = new Consult("09h", true, "Ana",
+            Consult consult = new Consult("21/07/2018", "09h", true, "Ana",
                     "23/04/1998", "62982521113", "70215896345");
             this.consults.add(consult);
         }
     }
 
     public List<Consult> getList(){
+        setListData();
         return consults;
     }
 }
