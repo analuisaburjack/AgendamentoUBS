@@ -15,9 +15,8 @@ public interface ConsultDAO {
     @Query("SELECT * FROM consults WHERE consult_date IN (:date) ORDER BY consult_hour ASC")
     List<Consult> getAll(String date);
 
-    @Query("SELECT * FROM consults WHERE consult_date LIKE (:date) " +
-            "AND consult_hour LIKE (:hour)")
-    Consult loadByHour(String date, String hour);
+    @Query("SELECT * FROM consults WHERE consult_dateHour LIKE (:dateHour)")
+    Consult loadByHour(String dateHour);
 
     @Insert
     void insertConsult (Consult consult);

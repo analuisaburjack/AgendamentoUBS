@@ -60,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Starting database
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDataBase.class, "agendamentoSQL").build();
-
+        db.getDatabase(MainActivity.this);
 
 
         //DatePicker
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerViewAdapter(test.getList()/*requestList(MainActivity.this, getDate())*/);
+        adapter = new RecyclerViewAdapter(requestList(MainActivity.this, getDate()));
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
@@ -127,18 +125,18 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 // Get current year, month and day.
-                Calendar now = Calendar.getInstance();
+                /*Calendar now = Calendar.getInstance();
                 int year = now.get(java.util.Calendar.YEAR);
                 int month = now.get(java.util.Calendar.MONTH);
                 int day = now.get(java.util.Calendar.DAY_OF_MONTH);
-
                 String str = generateDateString(year, month, day);
-                setDate(str);
-                btn.setText(str);
+                setDate(str);*/
+
+                btn.setText("Data");
 
 
                 // Create the new DatePickerDialog instance.
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, onDateSetListener, year, month, day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, onDateSetListener, 2018, 07, 03);
 
                 // Set dialog icon and title.
                 //datePickerDialog.setIcon(R.drawable.if_snowman);

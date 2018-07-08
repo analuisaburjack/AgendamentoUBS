@@ -7,10 +7,9 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
-@Dao
-public interface DayDAO {
+//@Dao
+/*public interface DayDAO {
     @Query("SELECT * FROM consults WHERE consult_date IN (:date) ORDER BY consult_hour ASC")
     List<Consult> getAll(String date);
 
@@ -20,5 +19,5 @@ public interface DayDAO {
 
     @Insert
     void insertDay (Day day);
-}
+}*/
 

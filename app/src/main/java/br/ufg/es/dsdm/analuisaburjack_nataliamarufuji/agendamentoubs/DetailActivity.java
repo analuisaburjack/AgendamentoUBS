@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.

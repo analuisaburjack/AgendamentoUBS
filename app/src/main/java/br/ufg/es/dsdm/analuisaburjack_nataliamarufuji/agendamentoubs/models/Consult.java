@@ -4,17 +4,17 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "consults",
-        foreignKeys = @ForeignKey(entity = Day.class,
-        parentColumns = "date",
-        childColumns = "consult_date"
-        ))
-
+@Entity(tableName = "consults")
 public class Consult {
     @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "consult_dateHour")
+    private String dateHour;
+
     @ColumnInfo(name = "consult_hour")
     private String hour;
 
@@ -42,6 +42,12 @@ public class Consult {
 
     public Consult(String date, String hour, Boolean booked, String name, String birth,
                    String phone, String sus){
+        StringBuilder str = new StringBuilder();
+        str.append(date)
+                .append(";")
+                .append(hour);
+
+        setDateHour(str.toString());
         setBooked(booked);
         setDate(date);
         setHour(hour);
@@ -49,6 +55,22 @@ public class Consult {
         setPacientBirth(birth);
         setPacientPhone(phone);
         setPacientSus(sus);
+    }
+
+    public String getDateHour() {
+        return dateHour;
+    }
+
+    public void setDateHour(String dateHour) {
+
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
     public String getDate() {
@@ -59,8 +81,12 @@ public class Consult {
         this.date = date;
     }
 
-    public void setHour(String hour) {
-        this.hour = hour;
+    public Boolean getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Boolean booked) {
+        this.booked = booked;
     }
 
     public String getPacientName() {
@@ -93,21 +119,5 @@ public class Consult {
 
     public void setPacientSus(String pacientSus) {
         this.pacientSus = pacientSus;
-    }
-
-    public Boolean isBooked() {
-        return booked;
-    }
-
-    public void setBooked(Boolean booked) {
-        this.booked = booked;
-    }
-
-    public String getHour() {
-        return hour;
-    }
-
-    public void sethour(String hour) {
-        this.hour = hour;
     }
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 public class RecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

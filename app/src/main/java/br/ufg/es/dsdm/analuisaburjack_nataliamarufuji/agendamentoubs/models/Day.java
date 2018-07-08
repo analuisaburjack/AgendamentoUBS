@@ -3,22 +3,24 @@ package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "day")
+/*@Entity(tableName = "day")
 public class Day {
 
     @PrimaryKey
     @ColumnInfo(name = "date")
+    @NonNull
     private String date;
 
     /*public List<String> listaTeste;
 
     private List<Consult> consults= new ArrayList<>();*/
 
-    public String getDate() {
+    /*public String getDate() {
         return date;
     }
 
@@ -32,4 +34,4 @@ public class Day {
         this.consults = consults;
     }*/
 
-}
+

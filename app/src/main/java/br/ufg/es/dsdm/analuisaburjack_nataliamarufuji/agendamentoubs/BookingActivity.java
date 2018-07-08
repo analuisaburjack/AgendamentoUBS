@@ -33,13 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
  */
 public class BookingActivity extends AppCompatActivity {
-    private Day day;
+    /*private Day day;
 
     public static final String EXTRA_POSITION = "position";
 
@@ -89,6 +88,6 @@ public class BookingActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG).show();
             }
         });
-    }
+    }*/
 
 }
