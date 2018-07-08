@@ -14,9 +14,9 @@ public class Day {
     @ColumnInfo(name = "date")
     private String date;
 
-    public List<String> listaTeste;
+    /*public List<String> listaTeste;
 
-    private List<Consult> consults= new ArrayList<>();
+    private List<Consult> consults= new ArrayList<>();*/
 
     public String getDate() {
         return date;
@@ -26,10 +26,10 @@ public class Day {
         this.date = date;
     }
 
-    public List<Consult> getConsults() {return this.consults; }
+    /*public List<Consult> getConsults() {return this.consults; }
 
     public void setConsults(List<Consult> consults) {
         this.consults = consults;
-    }
+    }*/
 
 }

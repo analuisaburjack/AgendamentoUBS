@@ -17,7 +17,7 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 public class WebTaskConsultList extends WebTaskBase {
 
     private static String URL = "getBook";
-    private String FIELD_DATE = "date";
+    private static String FIELD_DATE = "date";
 
     private String date;
     private List<Consult> consultList;
@@ -52,6 +52,7 @@ public class WebTaskConsultList extends WebTaskBase {
 
             for (int index = 0; index < dayAsJSON.length(); index++) {
                 JSONObject consultAsJSON = dayAsJSON.getJSONObject(index);
+                String dateW = consultAsJSON.getString("date");
                 String hour = consultAsJSON.getString("hour");
                 Boolean booked = consultAsJSON.getBoolean("booked");
                 String pacientName = consultAsJSON.getString("pacientName");
@@ -59,7 +60,7 @@ public class WebTaskConsultList extends WebTaskBase {
                 String pacientPhone = consultAsJSON.getString("pacientPhone");
                 String pacientSus = consultAsJSON.getString("pacientSUs");
 
-                Consult consult = new Consult(hour, booked, pacientName, pacientBirth,
+                Consult consult = new Consult(dateW, hour, booked, pacientName, pacientBirth,
                         pacientPhone, pacientSus);
 
                 consultList.add(consult);
