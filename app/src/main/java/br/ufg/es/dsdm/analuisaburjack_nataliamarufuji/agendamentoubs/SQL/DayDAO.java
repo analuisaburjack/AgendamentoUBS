@@ -1,11 +1,13 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 @Dao
 public interface DayDAO {
@@ -16,7 +18,7 @@ public interface DayDAO {
             "AND consult_hour LIKE (:hour)")
     Consult loadByHour(String date, String hour);
 
-    //@Insert
-    //void insertConsult (Consult consult);
+    @Insert
+    void insertDay (Day day);
 }
 

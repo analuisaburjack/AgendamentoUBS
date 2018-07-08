@@ -19,7 +19,7 @@ public interface ConsultDAO {
             "AND consult_hour LIKE (:hour)")
     Consult loadByHour(String date, String hour);
 
-    //@Insert
-    //void insertConsult (Consult consult);
+    @Insert
+    void insertConsult (Consult consult);
 }
 

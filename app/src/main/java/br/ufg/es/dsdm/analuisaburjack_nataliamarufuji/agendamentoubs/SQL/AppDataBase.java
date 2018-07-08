@@ -8,7 +8,7 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Day;
 
 @Database(entities = {Consult.class, Day.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
-    public abstract ConsultDAO ConsultDao();
-    public abstract DayDAO DayDao();
+    public abstract ConsultDAO consultDao();
+    public abstract DayDAO dayDao();
 }
 

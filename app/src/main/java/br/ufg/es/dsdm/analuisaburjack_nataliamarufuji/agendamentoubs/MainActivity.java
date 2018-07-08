@@ -17,6 +17,7 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 
 import android.app.DatePickerDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 import java.util.List;
 
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.ConsultList_Test;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private DividerItemDecoration mDividerItemDecoration;
     private String Date;
     private ConsultList_Test test;
+    private AppDataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Starting database
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDataBase.class, "agendamentoSQL").build();
+
+
 
         //DatePicker
         this.showDatePickerDialog();
