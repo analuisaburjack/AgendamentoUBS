@@ -39,7 +39,6 @@ public class WebTaskConsultList extends WebTaskBase {
     @Override
     void handleResponse(String response) {
         try {
-
             JSONObject requestAsJSON = new JSONObject(response);
             String status = requestAsJSON.getString("status");
             JSONArray dayAsJSON = requestAsJSON.getJSONArray("consults");

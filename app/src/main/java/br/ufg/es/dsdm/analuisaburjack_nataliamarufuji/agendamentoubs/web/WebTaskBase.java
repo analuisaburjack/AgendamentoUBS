@@ -90,6 +90,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
             Response response = client.newCall(request).execute();
             responseString =  response.body().string();
             responseHttpStatus = response.code();
+            handleResponse(responseString);
         } catch (IOException e) {
             if(e.getClass() == SocketTimeoutException.class){
                 error = new WebError("Servidor não responde. Tente mais tarde.", getUrl());
@@ -110,6 +111,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
                 JSONObject responseJSON = new JSONObject(responseString);
                 String errorMessage = responseJSON.getString("error");
                 EventBus.getDefault().post(new WebError(errorMessage, getUrl()));
+
             } catch (JSONException e) {
                 handleResponse(responseString);
             } catch (NullPointerException e) {
