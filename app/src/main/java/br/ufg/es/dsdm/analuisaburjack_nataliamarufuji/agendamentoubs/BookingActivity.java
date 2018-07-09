@@ -37,21 +37,18 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Cons
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
  */
-public class BookingActivity extends AppCompatActivity {
-    /*private Day day;
 
-    public static final String EXTRA_POSITION = "position";
+/* EDITAR PARA O USUARIO DEFINIR O HORARIO E A DATA, APENAS RETORNAR SNACKBAR;
+ACTIVTY FLOATIN BUTTON*/
+public class BookingActivity extends AppCompatActivity {
+    /*public static final String EXTRA_POSITION = "position";
 
     public BookingActivity(){}
-
-    public BookingActivity(Day day){
-        this.day = day;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_booking);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set Collapsing Toolbar layout to the screen
