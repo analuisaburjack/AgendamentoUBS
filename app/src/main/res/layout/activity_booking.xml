@@ -62,6 +62,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorAccent"
+                android:text="Dia"
+                android:textSize="@dimen/article_titles"
+                android:layout_marginBottom="@dimen/md_keylines" />
+
+            <EditText
+                android:id="@+id/booking_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Insira o dia da consulta" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorAccent"
+                android:text="Horário"
+                android:textSize="@dimen/article_titles"
+                android:layout_marginBottom="@dimen/md_keylines" />
+
+            <EditText
+                android:id="@+id/booking_hour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Insira o horário da consulta" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorAccent"
                 android:text="Paciente"
                 android:textSize="@dimen/article_titles"
                 android:layout_marginBottom="@dimen/md_keylines" />

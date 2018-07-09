@@ -2,11 +2,17 @@
     <string name="app_name">"AgendamentoUBS"</string>
     <string name="action_settings">Settings</string>
     <string name="button_register">Registrar-se</string>
-    <string name="hint_email">Email</string>
+    <string name="hint_cpf">CPF</string>
+    <string name="hint_birth">Data de Nascimento</string>
+    <string name="hint_newPswd">Nova senha</string>
+    <string name="hint_newPswd2">Repetir nova senha</string>
     <string name="button_forgot_password">Esqueceu a senha?</string>
     <string name="label_enter">Entrar</string>
+    <string name="label_fwd">Seguir</string>
+    <string name="label_resetPsw">Resetar senha</string>
     <string name="hint_password">Senha</string>
     <string name="error_connection">Você não tem conexão.</string>
     <string name="label_wait">Aguarde</string>
+    <string name="item_title">Nova consulta</string>
 
 </resources>

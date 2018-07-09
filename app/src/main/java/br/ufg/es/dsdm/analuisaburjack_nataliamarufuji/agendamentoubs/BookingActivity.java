@@ -41,9 +41,10 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Cons
 /* EDITAR PARA O USUARIO DEFINIR O HORARIO E A DATA, APENAS RETORNAR SNACKBAR;
 ACTIVTY FLOATIN BUTTON*/
 public class BookingActivity extends AppCompatActivity {
-    /*public static final String EXTRA_POSITION = "position";
 
     public BookingActivity(){}
+
+    private Consult consult;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,13 @@ public class BookingActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         // Set title of Detail page
-        // collapsingToolbar.setTitle(getString(R.string.item_title));
+        collapsingToolbar.setTitle(getString(R.string.item_title));
 
-        final int postion = getIntent().getIntExtra(EXTRA_POSITION, 0);
-        String hour = day.getConsults().get(postion).getHour();
-        collapsingToolbar.setTitle(hour);
+        EditText dateEdit = (EditText) findViewById(R.id.booking_date);
+        final String dateValue = dateEdit.getText().toString();
+
+        EditText hourEdit = (EditText) findViewById(R.id.booking_hour);
+        final String hourValue = hourEdit.getText().toString();
 
         EditText nameEdit = (EditText) findViewById(R.id.booking_pacient);
         final String nameValue = nameEdit.getText().toString();
@@ -76,15 +79,13 @@ public class BookingActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.book);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                day.getConsults().get(postion).setPacientName(nameValue);
-                day.getConsults().get(postion).setPacientBirth(birthValue);
-                day.getConsults().get(postion).setPacientPhone(phoneValue);
-                day.getConsults().get(postion).setPacientSus(susValue);
+                consult = new Consult(dateValue, hourValue, true, nameValue, birthValue,
+                        phoneValue, susValue);
 
                 Snackbar.make(v, "Consulta agendada com sucesso!",
                         Snackbar.LENGTH_LONG).show();
             }
         });
-    }*/
+    }
 
 }
