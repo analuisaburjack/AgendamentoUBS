@@ -8,6 +8,7 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.Consult
 
 public class ConsultList_Test {
     private ConsultDAO consultDB;
+    private Consult consult;
     int length = 9;
 
     public ConsultList_Test(AppDataBase db){
@@ -17,15 +18,32 @@ public class ConsultList_Test {
 
     public void setListData(){
         for (int i = 0; i < length; i++){
-            String str = i + "h";
-            Consult consult = new Consult("21/07/2018", str, true, "Ana",
-                    "23/04/1998", "62982521113", "70215896345");
-            consultDB.insertConsult(consult);
+
+            switch (i) {
+                case 0:
+                case 3:
+                case 4:
+                case 5:
+                    consult = new Consult("03/07/2018", "08h", false,
+                            "", "", "", "");
+                    consultDB.insertConsult(consult);
+                    break;
+                case 1:
+                case 2:
+                case 6:
+                case 7:
+                case 8:
+                    consult = new Consult("03/07/2018", "09h", true,
+                            "Lúcia Martins de Oliveira", "19/05/1987",
+                            "19/05/1987", "702709651256960");
+                    consultDB.insertConsult(consult);
+                    break;
+            }
         }
     }
 
     public List<Consult> getList(){
         setListData();
-        return consultDB.getAll("21/07/2018");
+        return consultDB.getAll("03/07/2018");
     }
 }

@@ -77,17 +77,20 @@ public class MainActivity extends AppCompatActivity {
         //test = new ConsultList_Test(db);
 
         consultDAO = db.consultDao();
-        consultDAO.deleteAll();
-        consults = requestList(MainActivity.this, "23/07/2018");
+        consults = requestList(MainActivity.this);
 
         for (int i = 0; i < consults.size(); i++){
             consultDAO.insertConsult(consults.get(i));
         }
 
+        consults = consultDAO.getAll("03/07/2018");
+
+        //consults = test.getList();
+
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerViewAdapter(consultDAO.getAll("03/07/2018"));
+        adapter = new RecyclerViewAdapter(consults);
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
@@ -115,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         Date = date;
     }
 
-    public List<Consult> requestList(Context context, String date){
-        WebTaskConsultList webTaskList = new WebTaskConsultList(context, date);
+    public List<Consult> requestList(Context context){
+        WebTaskConsultList webTaskList = new WebTaskConsultList(context);
         webTaskList.execute();
         return webTaskList.getmConsults();
     }

@@ -17,15 +17,14 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Cons
 
 public class WebTaskConsultList extends WebTaskBase {
 
-    private static String URL = "getBook";
+    private static String URL = "/getBook";
     private static String DATE = "date";
 
-    private String dateBody;
+    private String dateBody = "03/07/2018";
     private List<Consult> mConsults;
 
-    public WebTaskConsultList(Context context, String date) {
+    public WebTaskConsultList(Context context) {
         super(context, URL);
-        this.dateBody = date;
     }
 
     @Override
