@@ -7,7 +7,7 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppData
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
 
 public class ConsultList_Test {
-    private List<Consult> consultList = new ArrayList<Consult>();
+    private List<Consult> consultList;
     private Consult consult;
     int length = 9;
 
@@ -22,7 +22,7 @@ public class ConsultList_Test {
                 case 5:
                     consult = new Consult("03/07/2018", "08h", false,
                             "", "", "", "");
-                    consultList.add(consult);
+                    consultList.set(i, consult);
                     break;
                 case 1:
                 case 2:
@@ -32,10 +32,9 @@ public class ConsultList_Test {
                     consult = new Consult("03/07/2018", "09h", true,
                             "Lúcia Martins de Oliveira", "19/05/1987",
                             "19/05/1987", "702709651256960");
-                    consultList.add(consult);
+                    consultList.set(i, consult);
                     break;
             }
-
         }
     }
 

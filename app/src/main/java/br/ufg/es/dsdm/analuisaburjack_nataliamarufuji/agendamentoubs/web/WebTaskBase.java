@@ -24,7 +24,7 @@ import okhttp3.Response;
 public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
 
     private static int TIMEOUT = 20;
-    private static String BASE_URL = "http://private-11b6d8-sus1.apiary-mock.com/";
+    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com";
 
     private String serviceURL;
     private Context context;
@@ -64,7 +64,6 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
                 .build();
 
         Request.Builder requestBuilder = new Request.Builder()
-                .header("Content-Type" ,  "application/json")
                 .url(getUrl());
 
         switch (getMethod()){
@@ -86,8 +85,9 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
         }
 
         Request request = requestBuilder.build();
+        Response response = null;
         try {
-            Response response = client.newCall(request).execute();
+            response = client.newCall(request).execute();
             responseString =  response.body().string();
             responseHttpStatus = response.code();
         } catch (IOException e) {

@@ -7,11 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 
 public class WebTaskConsultList extends WebTaskBase {
@@ -20,7 +21,7 @@ public class WebTaskConsultList extends WebTaskBase {
     private static String DATE = "date";
 
     private String dateBody = "03/07/2018";
-    private List<Consult> mConsults = new ArrayList<Consult>();
+    private List<Consult> mConsults;
 
     public WebTaskConsultList(Context context) {
         super(context, URL);
@@ -38,6 +39,7 @@ public class WebTaskConsultList extends WebTaskBase {
 
     @Override
     void handleResponse(String response) {
+
         try {
 
             JSONObject requestAsJSON = new JSONObject(response);
@@ -69,10 +71,10 @@ public class WebTaskConsultList extends WebTaskBase {
 
     @Override
     HttpMethod getMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.POST;
     }
 
-   public List<Consult> getmConsults() {
-        return this.mConsults;
+    public List<Consult> getmConsults() {
+        return mConsults;
     }
 }

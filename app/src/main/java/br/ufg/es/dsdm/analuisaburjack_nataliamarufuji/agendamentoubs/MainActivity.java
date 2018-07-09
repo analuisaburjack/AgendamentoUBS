@@ -18,6 +18,7 @@ package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs;
 
 import android.app.DatePickerDialog;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,7 +29,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.os.StrictMode;
 import android.widget.DatePicker;
 
 import java.util.List;
@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         //consultDAO = db.consultDao();
         //consults = requestList(MainActivity.this);
-        requestList();
+        consults = test.getList();
 
         //for (int i = 0; i < consults.size(); i++){
           //  consultDAO.insertConsult(consults.get(i));
@@ -128,10 +125,13 @@ public class MainActivity extends AppCompatActivity {
         Date = date;
     }
 
-    public void requestList(){
-        WebTaskConsultList webTaskList = new WebTaskConsultList(this);
+    /*public List<Consult> requestList(Context context){
+        WebTaskConsultList webTaskList = new WebTaskConsultList(context);
         webTaskList.execute();
-    }
+        return webTaskList.getmConsults();
+    }*/
+
+
 
     // Create and show a DatePickerDialog when click button.
     private void showDatePickerDialog()

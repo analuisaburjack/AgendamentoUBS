@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity(tableName = "consults")
 public class Consult implements Serializable{
@@ -123,5 +122,4 @@ public class Consult implements Serializable{
     public void setPacientSus(String pacientSus) {
         this.pacientSus = pacientSus;
     }
-
 }
