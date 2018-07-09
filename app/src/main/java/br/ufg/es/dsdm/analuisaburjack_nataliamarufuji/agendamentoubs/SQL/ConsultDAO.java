@@ -19,6 +19,9 @@ public interface ConsultDAO {
     Consult loadByHour(String dateHour);
 
     @Insert
-    void insertConsult (Consult consult);
+    void insertConsult (Consult... consult);
+
+    @Query("DELETE FROM consults")
+    void deleteAll();
 }
 

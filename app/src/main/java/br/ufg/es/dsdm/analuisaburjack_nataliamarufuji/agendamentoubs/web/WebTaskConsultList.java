@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 
 public class WebTaskConsultList extends WebTaskBase {
@@ -20,15 +21,11 @@ public class WebTaskConsultList extends WebTaskBase {
     private static String DATE = "date";
 
     private String dateBody;
-    private AppDataBase db;
+    private List<Consult> mConsults;
 
     public WebTaskConsultList(Context context, String date) {
         super(context, URL);
         this.dateBody = date;
-    }
-
-    public List<Consult> getConsultList() {
-        return db.consultDao().getAll(dateBody);
     }
 
     @Override
@@ -63,7 +60,7 @@ public class WebTaskConsultList extends WebTaskBase {
                 Consult consult = new Consult(date, hour, booked, pacientName, pacientBirth,
                         pacientPhone, pacientSus);
 
-                db.consultDao().insertConsult(consult);
+                this.mConsults.add(consult);
             }
         } catch (JSONException e) {
             EventBus.getDefault().post(
@@ -77,5 +74,7 @@ public class WebTaskConsultList extends WebTaskBase {
         return HttpMethod.GET;
     }
 
-
+    public List<Consult> getmConsults() {
+        return mConsults;
+    }
 }

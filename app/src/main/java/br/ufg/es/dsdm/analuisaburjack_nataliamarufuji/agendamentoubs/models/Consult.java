@@ -8,8 +8,10 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "consults")
-public class Consult {
+public class Consult implements Serializable{
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "consult_dateHour")
@@ -62,7 +64,7 @@ public class Consult {
     }
 
     public void setDateHour(String dateHour) {
-
+        this.dateHour = dateHour;
     }
 
     public String getHour() {

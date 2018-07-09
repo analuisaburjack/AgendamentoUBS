@@ -20,6 +20,7 @@ import android.app.DatePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,9 +31,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.ConsultList_Test;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
@@ -46,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private DividerItemDecoration mDividerItemDecoration;
     private String Date;
     private ConsultList_Test test;
-    private AppDataBase db;
+    private ConsultDAO consultDAO;
+    private List<Consult> consults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +66,28 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Starting database
-        db.getDatabase(MainActivity.this);
+        AppDataBase db = Room.databaseBuilder(MainActivity.this.getApplicationContext(),
+                AppDataBase.class, "agendamento_database")
+                .build();
 
 
         //DatePicker
         this.showDatePickerDialog();
 
-        test = new ConsultList_Test();
+        //test = new ConsultList_Test(db);
+
+        consultDAO = db.consultDao();
+        consultDAO.deleteAll();
+        consults = requestList(MainActivity.this, "23/07/2018");
+
+        for (int i = 0; i < consults.size(); i++){
+            consultDAO.insertConsult(consults.get(i));
+        }
 
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerViewAdapter(requestList(MainActivity.this, getDate()));
+        adapter = new RecyclerViewAdapter(consultDAO.getAll("03/07/2018"));
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
@@ -101,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
     public List<Consult> requestList(Context context, String date){
         WebTaskConsultList webTaskList = new WebTaskConsultList(context, date);
-        return webTaskList.getConsultList();
+        webTaskList.execute();
+        return webTaskList.getmConsults();
     }
 
 
@@ -128,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
                 /*Calendar now = Calendar.getInstance();
                 int year = now.get(java.util.Calendar.YEAR);
                 int month = now.get(java.util.Calendar.MONTH);
-                int day = now.get(java.util.Calendar.DAY_OF_MONTH);
-                String str = generateDateString(year, month, day);
-                setDate(str);*/
+                int day = now.get(java.util.Calendar.DAY_OF_MONTH);*/
+                String str = generateDateString(2018, 06, 03);
+                setDate(str);
 
-                btn.setText("Data");
+                btn.setText("03/07/2018");
 
 
                 // Create the new DatePickerDialog instance.

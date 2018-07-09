@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
@@ -22,8 +23,6 @@ public class RecyclerViewAdapter extends
         // for any view that will be set as you render a row
         public TextView hour;
         public TextView pacientName;
-        public TextView pacientBirth;
-        public TextView pacientPhone;
         public TextView pacientSus;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -46,6 +45,7 @@ public class RecyclerViewAdapter extends
 
                     intent = new Intent(context, DetailActivity.class);
                     intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
+                    intent.putExtra("LIST", (Serializable) getConsultList());
                     context.startActivity(intent);
                 }
             });
@@ -53,9 +53,8 @@ public class RecyclerViewAdapter extends
         }
     }
 
-    // Store a member variable for the contacts
-    //private Day day;
     private List<Consult> consultList;
+    private String date;
 
 
     // Pass in the contact array into the constructor
@@ -90,12 +89,6 @@ public class RecyclerViewAdapter extends
         TextView nameView = viewHolder.pacientName;
         nameView.setText(consult.getPacientName());
 
-        TextView birthView = viewHolder.pacientBirth;
-        birthView.setText(consult.getPacientBirth());
-
-        TextView phoneView = viewHolder.pacientPhone;
-        phoneView.setText(consult.getPacientPhone());
-
         TextView susView = viewHolder.pacientSus;
         susView.setText(consult.getPacientSus());
 }
@@ -106,4 +99,7 @@ public class RecyclerViewAdapter extends
         return consultList.size();
     }
 
+    public List<Consult> getConsultList() {
+        return consultList;
+    }
 }
