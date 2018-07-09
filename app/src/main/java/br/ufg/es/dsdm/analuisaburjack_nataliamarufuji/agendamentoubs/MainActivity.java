@@ -31,16 +31,18 @@ import android.widget.Button;
 import android.os.StrictMode;
 import android.widget.DatePicker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth.LoginActivity;
+//import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth.LoginActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.ConsultList_Test;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     private final String TAG = "MainActivity";
     private RecyclerView recyclerView;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private ConsultList_Test test;
     private ConsultDAO consultDAO;
     private List<Consult> consults;
+    WebTaskConsultList asyncTask = new WebTaskConsultList(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // Adding Floating Action Button to bottom right of main view
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //DatePicker
         this.showDatePickerDialog();
@@ -88,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
         //consultDAO = db.consultDao();
         //consults = requestList(MainActivity.this);
-        requestList();
+        //this to set delegate/listener back to this class
+        asyncTask.delegate = this;
+
+        //execute the async task
+        asyncTask.execute();
 
         //for (int i = 0; i < consults.size(); i++){
           //  consultDAO.insertConsult(consults.get(i));
@@ -97,16 +105,9 @@ public class MainActivity extends AppCompatActivity {
         //consults = consultDAO.getAll("03/07/2018");
 
 
-        // Setting RecyclerView
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerViewAdapter(consults);
-        mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-        recyclerView.addItemDecoration(mDividerItemDecoration);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+
+
+
     }
 
     public String generateDateString(int year, int month, int day){
@@ -129,8 +130,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void requestList(){
-        WebTaskConsultList webTaskList = new WebTaskConsultList(this);
-        webTaskList.execute();
+
+    }
+
+    //this override the implemented method from asyncTask
+    @Override
+    public void processFinish(List o){
+        this.consults = o;
+        // Setting RecyclerView
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        adapter = new RecyclerViewAdapter(consults);
+        mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(mDividerItemDecoration);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
     }
 
     // Create and show a DatePickerDialog when click button.

@@ -1,4 +1,4 @@
-package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web;
+/*package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web;
 
 import android.content.Context;
 
@@ -36,7 +36,7 @@ public class WebTaskLogin extends WebTaskBase {
     }
 
     @Override
-    void handleResponse(String response) {
+    void handleResponse(String response, int code) {
 
         try {
             JSONObject userAsJSON = new JSONObject(response);
@@ -56,4 +56,4 @@ public class WebTaskLogin extends WebTaskBase {
     HttpMethod getMethod() {
         return HttpMethod.POST;
     }
-}
+}*/

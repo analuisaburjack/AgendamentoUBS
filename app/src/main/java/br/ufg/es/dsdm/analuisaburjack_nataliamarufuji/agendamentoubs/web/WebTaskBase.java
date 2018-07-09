@@ -1,4 +1,4 @@
-package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web;
+/*package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -11,6 +11,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
@@ -26,6 +28,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
     private static int TIMEOUT = 20;
     private static String BASE_URL = "http://private-11b6d8-sus1.apiary-mock.com/";
 
+    public AsyncResponse delegate = null;
     private String serviceURL;
     private Context context;
     private WebError error;
@@ -41,7 +44,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected <T> T doInBackground(Void... voids) {
 
         if(!isOnline()){
             error = new WebError(context.getString(R.string.error_connection), getUrl());
@@ -90,7 +93,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
             Response response = client.newCall(request).execute();
             responseString =  response.body().string();
             responseHttpStatus = response.code();
-            handleResponse(responseString);
+            //handleResponse(responseString, responseHttpStatus);
         } catch (IOException e) {
             if(e.getClass() == SocketTimeoutException.class){
                 error = new WebError("Servidor não responde. Tente mais tarde.", getUrl());
@@ -102,8 +105,8 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Void avoid) {
+        super.onPostExecute(avoid);
         if(error!= null){
            handleError();
         }else{
@@ -113,9 +116,10 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
                 EventBus.getDefault().post(new WebError(errorMessage, getUrl()));
 
             } catch (JSONException e) {
-                handleResponse(responseString);
+                handleResponse(responseString, responseHttpStatus);
+                delegate.processFinish(Collections.singletonList(avoid));
             } catch (NullPointerException e) {
-                handleResponse("");
+                handleResponse("", 401);
             }
         }
     }
@@ -134,7 +138,7 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
 
     abstract String getRequestBody();
 
-    abstract void handleResponse(String response);
+    abstract void handleResponse(String response, int code);
 
     abstract HttpMethod getMethod();
 
@@ -158,5 +162,5 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
     protected enum HttpMethod {
         GET,POST,PATCH,DELETE,PUT;
     }
-}
+}*/
 
