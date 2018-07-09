@@ -32,8 +32,8 @@ public abstract class WebTaskBase extends AsyncTask<Void, Void, Void> {
     private String responseString;
     private int responseHttpStatus;
 
-    public static final MediaType JSON
-            = MediaType.parse("application/json; charset=utf-8");
+    public static MediaType JSON
+            = MediaType.parse("application/json");
 
     public WebTaskBase(Context context, String serviceURL) {
         this.context = context;

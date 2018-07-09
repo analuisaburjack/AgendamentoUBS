@@ -18,9 +18,9 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Cons
 public class WebTaskConsultList extends WebTaskBase {
 
     private static String URL = "/getBook";
-    //private static String DATE = "date";
+    private static String DATE = "date";
 
-    //private String dateBody = "03/07/2018";
+    private String dateBody = "03/07/2018";
     private List<Consult> mConsults;
 
     public WebTaskConsultList(Context context) {
@@ -29,13 +29,11 @@ public class WebTaskConsultList extends WebTaskBase {
 
     @Override
     String getRequestBody() {
-        /*Map<String,Object> requestMap = new HashMap<>();
-        requestMap.put();
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put(DATE, dateBody);
 
         JSONObject json = new JSONObject(requestMap);
-        return json.toString();*/
-
-        return "";
+        return json.toString();
 
     }
 
@@ -73,7 +71,7 @@ public class WebTaskConsultList extends WebTaskBase {
 
     @Override
     HttpMethod getMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.POST;
     }
 
     public List<Consult> getmConsults() {
