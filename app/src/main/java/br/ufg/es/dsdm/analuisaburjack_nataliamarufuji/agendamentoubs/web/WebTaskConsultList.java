@@ -122,8 +122,7 @@ public class WebTaskConsultList extends AsyncTask<Void, Void, List<Consult>> {
                 EventBus.getDefault().post(new WebError(errorMessage, getUrl()));
 
             } catch (JSONException e) {
-
-                delegate.processFinish(consults);
+                delegate.processFinishList(consults);
             } catch (NullPointerException e) {
                 handleResponse("", 401);
             }

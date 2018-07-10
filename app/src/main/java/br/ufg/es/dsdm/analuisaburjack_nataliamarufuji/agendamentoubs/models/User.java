@@ -5,11 +5,19 @@ package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models;
  */
 
 public class User {
+    private String name;
+    private String date_of_birth;
     private String job;
     private String email;
-    private String name;
-    private String cpf;
-    private String date_of_birth;
+
+    public User(){}
+
+    public User (String name, String date_of_birth, String job, String email){
+        setName(name);
+        setDate_of_birth(date_of_birth);
+        setJob(job);
+        setEmail(email);
+    }
 
     public String getDate_of_birth() {
         return date_of_birth;
@@ -25,14 +33,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getJob() {

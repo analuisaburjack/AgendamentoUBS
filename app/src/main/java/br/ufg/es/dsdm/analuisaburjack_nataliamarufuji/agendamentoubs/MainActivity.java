@@ -20,6 +20,7 @@ import android.app.DatePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -28,19 +29,19 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.os.StrictMode;
 import android.widget.DatePicker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.AppDataBase;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.SQL.ConsultDAO;
-//import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth.LoginActivity;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth.LoginActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.ConsultList_Test;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskConsultList;
+
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
@@ -76,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 .build();
 
         // Adding Floating Action Button to bottom right of main view
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         //DatePicker
         this.showDatePickerDialog();
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     //this override the implemented method from asyncTask
     @Override
-    public void processFinish(List o){
+    public void processFinishList(List o){
         this.consults = o;
         // Setting RecyclerView
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
@@ -189,6 +190,14 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 datePickerDialog.show();
             }
         });
+    }
+
+    @Override
+    public void processFinishLogin(Integer output) {}
+
+    @Override
+    public void processFinishAdd(String output) {
+
     }
 }
 

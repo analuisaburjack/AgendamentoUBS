@@ -1,6 +1,6 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth;
 
-/*import android.content.Intent;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,12 +15,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.BookingActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebError;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AsyncResponse {
 
     MaterialDialog dialog;
 
@@ -37,34 +42,17 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        setupButtonRememberPassword();
         setupLogin();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
-    }
-
-    private void setupButtonRememberPassword() {
-        Button buttonRememberPassword =
-                findViewById(R.id.button_forgot_password);
-        buttonRememberPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentPassword = new Intent(getApplicationContext(),
-                        RememberPassword.class);
-                startActivity(intentPassword);
-            }
-        });
     }
 
     private void setupLogin() {
@@ -73,31 +61,30 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //tryLogin();
-                Intent intent = new Intent(LoginActivity.this, BookingActivity.class);
-                startActivity(intent);
+                tryLogin();
             }
         });
     }
 
     private void tryLogin() {
-        EditText editTextEmail = findViewById(R.id.input_cpf);
+        EditText editTextCpf = findViewById(R.id.input_cpf);
         EditText editTextPassword = findViewById(R.id.input_password);
 
-        if(!"".equals(editTextEmail.getText().toString())){
+        if(!"".equals(editTextCpf.getText().toString())){
             showLoading();
-            sendCredentials(editTextEmail.getText().toString(),
+            sendCredentials(editTextCpf.getText().toString(),
                     editTextPassword.getText().toString());
         }else{
-            editTextEmail.setError("Preencha o campo cpf");
+            editTextCpf.setError("Preencha o campo cpf");
         }
 
     }
 
-    private void sendCredentials(String email, String pass) {
-        WebTaskLogin taskLogin = new WebTaskLogin(this,
-                email, pass);
-        taskLogin.execute();
+    private void sendCredentials(String cpf, String pass) {
+        WebTaskLogin asyncTask  = new WebTaskLogin(this,
+                cpf, pass);
+        asyncTask.delegate = this;
+        asyncTask.execute();
     }
 
     private void showLoading(){
@@ -108,27 +95,37 @@ public class LoginActivity extends AppCompatActivity {
                 .show();
     }
 
-    @Subscribe
-    public void onEvent(String response){
-        hideLoading();
-        Intent openUrlIntent = new Intent(Intent.ACTION_VIEW);
-        openUrlIntent.setData(
-                Uri.parse("http://www.freescreencleaner.com/"));
-        startActivity(openUrlIntent);
-    }
-
-    @Subscribe
-    public void onEvent(WebError error){
-        hideLoading();
-        Snackbar.make(findViewById(R.id.container),
-                        error.getMessage(),
-                        Snackbar.LENGTH_LONG).show();
-    }
-
     private void hideLoading(){
         if(dialog != null && dialog.isShowing()){
             dialog.hide();
             dialog = null;
         }
     }
-}*/
+
+    private void showError(){
+        dialog = new MaterialDialog.Builder(this)
+                .content("CPF ou senha inválido(s)")
+                .cancelable(false)
+                .show();
+    }
+
+
+    @Override
+    public void processFinishList(List<Consult> output) {}
+
+    @Override
+    public void processFinishLogin(Integer o) {
+        if(o == 200){
+            hideLoading();
+            Intent intent = new Intent(LoginActivity.this, BookingActivity.class);
+            startActivity(intent);
+        }else{
+            hideLoading();
+
+        }
+
+    }
+
+    @Override
+    public void processFinishAdd(String output) {}
+}

@@ -33,18 +33,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskAddConsult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
  */
 
-/* EDITAR PARA O USUARIO DEFINIR O HORARIO E A DATA, APENAS RETORNAR SNACKBAR;
-ACTIVTY FLOATIN BUTTON*/
-public class BookingActivity extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity implements AsyncResponse {
 
     public BookingActivity(){}
-
-    private Consult consult;
+    private String msg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,13 +79,33 @@ public class BookingActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.book);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                consult = new Consult(dateValue, hourValue, true, nameValue, birthValue,
+                WebTaskAddConsult asyncTask  = new WebTaskAddConsult(BookingActivity.this,
+                        dateValue, hourValue, nameValue, birthValue,
                         phoneValue, susValue);
+                asyncTask.delegate = BookingActivity.this;
+                asyncTask.execute();
 
-                Snackbar.make(v, "Consulta agendada com sucesso!",
+                Snackbar.make(v, getMsg(),
                         Snackbar.LENGTH_LONG).show();
             }
         });
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    @Override
+    public void processFinishList(List<Consult> output) {}
+    @Override
+    public void processFinishLogin(Integer output) {}
+
+    @Override
+    public void processFinishAdd(String o) {
+        setMsg(o);
+    }
 }
