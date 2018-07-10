@@ -9,7 +9,6 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Cons
 
 @Database(entities = {Consult.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
-    public abstract ConsultDAO consultDao();
 
     private static AppDataBase INSTANCE;
 

@@ -38,6 +38,8 @@ public class Consult implements Serializable{
     @ColumnInfo(name = "pacient_sus")
     private String pacientSus;
 
+    private long id;
+
     public Consult(){
         setBooked(false);
     }
@@ -57,6 +59,14 @@ public class Consult implements Serializable{
         setPacientBirth(birth);
         setPacientPhone(phone);
         setPacientSus(sus);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDateHour() {
@@ -123,4 +133,16 @@ public class Consult implements Serializable{
         this.pacientSus = pacientSus;
     }
 
+    public static class Entries {
+        public static final String ID = "ID";
+        public static final String TABLE_NAME = "T_CONSULTS";
+        public static final String COL_DATE_HOUR = "DATEHOUR";
+        public static final String COL_HOUR = "HOUR";
+        public static final String COL_DATE = "DATE";
+        public static final String COL_BOOKED = "BOOKED";
+        public static final String COL_PACIENT_NAME= "PACIENTNAME";
+        public static final String COL_PACIENT_BIRTH = "PACIENTBIRTH";
+        public static final String COL_PACIENT_PHONE = "PACIENTPHONE";
+        public static final String COL_PACIENT_SUS = "PACIENTSUS";
+    }
 }
