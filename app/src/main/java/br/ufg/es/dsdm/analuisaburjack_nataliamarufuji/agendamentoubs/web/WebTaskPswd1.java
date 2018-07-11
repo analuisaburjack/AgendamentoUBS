@@ -22,11 +22,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
+public class WebTaskPswd1 extends AsyncTask<Void, Void, Integer> {
 
-    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com/login";
+    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com//newpswd";
     private String CPF = "cpf";
-    private String PASSWORD = "password";
+    private String DATE_OF_BIRTH = "birth";
     private static int TIMEOUT = 20;
 
     public AsyncResponse delegate = null;
@@ -35,17 +35,17 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
     private String responseString;
     private int responseHttpStatus;
 
-    private String cpf = "81260878546";
-    private String password = "12345678";
+    private String cpf = "05686632170";
+    private String birth = "23/04/1998";
     private Integer code;
 
     public static MediaType JSON
             = MediaType.parse("application/json");
 
-    public WebTaskLogin(Context context, String cpf, String password) {
+    public WebTaskPswd1(Context context, String cpf, String birth) {
         this.context = context;
         this.cpf = cpf;
-        this.password = password;
+        this.birth = birth;
     }
 
 
@@ -152,7 +152,7 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
     String getRequestBody() {
         Map<String,Object> requestMap = new HashMap<>();
         requestMap.put(CPF, cpf);
-        requestMap.put(PASSWORD, password);
+        requestMap.put(DATE_OF_BIRTH, birth);
 
         JSONObject json = new JSONObject(requestMap);
         return json.toString();

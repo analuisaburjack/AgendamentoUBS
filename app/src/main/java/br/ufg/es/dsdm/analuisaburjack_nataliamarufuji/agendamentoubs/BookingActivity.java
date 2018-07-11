@@ -100,12 +100,13 @@ public class BookingActivity extends AppCompatActivity implements AsyncResponse 
     }
 
     @Override
-    public void processFinishList(List<Consult> output) {}
-    @Override
-    public void processFinishLogin(Integer output) {}
-
-    @Override
-    public void processFinishAdd(String o) {
+    public void processFinishString(String o) {
         setMsg(o);
     }
+
+    @Override
+    public void processFinishList(List<Consult> output) {}
+
+    @Override
+    public void processFinishInteger(Integer output) {}
 }

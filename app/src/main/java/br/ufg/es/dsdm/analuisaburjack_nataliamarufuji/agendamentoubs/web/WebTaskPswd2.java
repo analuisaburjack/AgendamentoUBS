@@ -22,11 +22,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
+public class WebTaskPswd2 extends AsyncTask<Void, Void, String> {
 
-    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com/login";
-    private String CPF = "cpf";
-    private String PASSWORD = "password";
+    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com//newpswd";
+    private String NEWPSWD1 = "pswd1";
+    private String NEWPSWD2 = "pswd2";
     private static int TIMEOUT = 20;
 
     public AsyncResponse delegate = null;
@@ -35,21 +35,21 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
     private String responseString;
     private int responseHttpStatus;
 
-    private String cpf = "81260878546";
-    private String password = "12345678";
-    private Integer code;
+    private String pswd1 = "12345679";
+    private String pswd2 = "123456789";
+    private String answer;
 
     public static MediaType JSON
             = MediaType.parse("application/json");
 
-    public WebTaskLogin(Context context, String cpf, String password) {
+    public WebTaskPswd2(Context context, String pswd1, String pswd2) {
         this.context = context;
-        this.cpf = cpf;
-        this.password = password;
+        this.pswd1 = pswd1;
+        this.pswd2 = pswd2;
     }
 
 
-    protected Integer doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
 
         if(!isOnline()){
             error = new WebError(context.getString(R.string.error_connection), getUrl());
@@ -60,7 +60,7 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
         return doRegularCall();
     }
 
-    private Integer doRegularCall() {
+    private String doRegularCall() {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, getRequestBody());
 
@@ -97,7 +97,7 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
             responseString =  response.body().string();
             responseHttpStatus = response.code();
 
-            return responseHttpStatus;
+            return handleResponse(responseString);
         } catch (IOException e) {
             if(e.getClass() == SocketTimeoutException.class){
                 error = new WebError("Servidor não responde. Tente mais tarde.", getUrl());
@@ -106,12 +106,12 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
                         + ":" + e.getMessage(), getUrl());
             }
 
-            return 401;
+            return "Erro";
         }
     }
 
-    protected void onPostExecute(Integer code) {
-        super.onPostExecute(code);
+    protected void onPostExecute(String answer) {
+        super.onPostExecute(answer);
         if(error!= null){
             handleError();
         }else{
@@ -121,9 +121,9 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
                 EventBus.getDefault().post(new WebError(errorMessage, getUrl()));
 
             } catch (JSONException e) {
-                delegate.processFinishInteger(code);
+                delegate.processFinishString(answer);
             } catch (NullPointerException e) {
-                code = 401;
+                answer = "Erro";
             }
         }
     }
@@ -151,12 +151,24 @@ public class WebTaskLogin extends AsyncTask<Void, Void, Integer> {
 
     String getRequestBody() {
         Map<String,Object> requestMap = new HashMap<>();
-        requestMap.put(CPF, cpf);
-        requestMap.put(PASSWORD, password);
+        requestMap.put(NEWPSWD1, pswd1);
+        requestMap.put(NEWPSWD2, pswd2);
 
         JSONObject json = new JSONObject(requestMap);
         return json.toString();
 
+    }
+
+    String handleResponse(String response) {
+        try{
+            JSONObject messageAsJSON = new JSONObject(response);
+            String msg = messageAsJSON.getString("message");
+            this.answer = msg;
+
+            return this.answer;
+        }catch (JSONException e) {
+            return "Resposta inválida do servidor";
+        }
     }
 
     HttpMethod getMethod() {

@@ -1,7 +1,6 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,27 +11,23 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.BookingActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebError;
 
-public class LoginActivity extends AppCompatActivity implements AsyncResponse {
+public class RememberPswdActivity2 extends AppCompatActivity implements AsyncResponse {
 
     MaterialDialog dialog;
+    String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_remember_password2);
 
         ImageView buttonClose = findViewById(R.id.button_close);
 
@@ -42,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
                 finish();
             }
         });
-        setupLogin();
+        setupAuth();
     }
 
     @Override
@@ -55,36 +50,45 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         super.onPause();
     }
 
-    private void setupLogin() {
+    private void setupAuth() {
         Button buttonLogin =
                 findViewById(R.id.button_login);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryLogin();
+                tryAuth();
             }
         });
     }
 
-    private void tryLogin() {
-        EditText editTextCpf = findViewById(R.id.input_cpf);
-        EditText editTextPassword = findViewById(R.id.input_password);
+    private void tryAuth() {
+        EditText editTextNewPswd1 = findViewById(R.id.input_newpswd);
+        EditText editTextNewPswd2 = findViewById(R.id.input_newpswd2);
 
-        if(!"".equals(editTextCpf.getText().toString())){
+        if(!"".equals(editTextNewPswd1.getText().toString())){
             showLoading();
-            sendCredentials(editTextCpf.getText().toString(),
-                    editTextPassword.getText().toString());
+            sendCredentials(editTextNewPswd1.getText().toString(),
+                    editTextNewPswd2.getText().toString());
         }else{
-            editTextCpf.setError("Preencha o campo cpf");
+            editTextNewPswd1.setError("Preencha o campo 'Nova senha'");
         }
 
     }
 
-    private void sendCredentials(String cpf, String pass) {
+    private void showMsg(){
+        dialog = new MaterialDialog.Builder(this)
+                .content(getMsg())
+                .cancelable(false)
+                .show();
+    }
+
+    private void sendCredentials(String pass1, String pass2) {
         WebTaskLogin asyncTask  = new WebTaskLogin(this,
-                cpf, pass);
+                pass1, pass2);
         asyncTask.delegate = this;
         asyncTask.execute();
+
+        showMsg();
     }
 
     private void showLoading(){
@@ -102,31 +106,25 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-    private void showError(){
-        dialog = new MaterialDialog.Builder(this)
-                .content("CPF ou senha inválido(s)")
-                .cancelable(false)
-                .show();
+
+    public String getMsg() {
+        return msg;
     }
 
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     @Override
-    public void processFinishInteger(Integer o) {
-        if(o == 200){
-            hideLoading();
-            Intent intent = new Intent(LoginActivity.this, BookingActivity.class);
-            startActivity(intent);
-        }else{
-            hideLoading();
-            showError();
-        }
-
+    public void processFinishString(String o) {
+        hideLoading();
+        setMsg(o);
     }
 
     @Override
     public void processFinishList(List<Consult> output) {}
 
-
     @Override
-    public void processFinishString(String output) {}
+    public void processFinishInteger(Integer o) {}
 }
+

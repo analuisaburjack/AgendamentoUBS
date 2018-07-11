@@ -7,10 +7,6 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User
 
 public interface AsyncResponse {
     void processFinishList(List<Consult> output);
-    void processFinishLogin(Integer output);
-    void processFinishAdd(String output);
-
-
-
-
+    void processFinishInteger(Integer output);
+    void processFinishString(String output);
 }

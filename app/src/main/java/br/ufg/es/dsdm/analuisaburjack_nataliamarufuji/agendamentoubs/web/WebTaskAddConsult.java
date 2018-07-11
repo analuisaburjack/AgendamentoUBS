@@ -135,7 +135,7 @@ public class WebTaskAddConsult extends AsyncTask<Void, Void, String> {
                 EventBus.getDefault().post(new WebError(errorMessage, getUrl()));
 
             } catch (JSONException e) {
-                delegate.processFinishAdd(answer);
+                delegate.processFinishString(answer);
             } catch (NullPointerException e) {
                 handleResponse("Error");
             }

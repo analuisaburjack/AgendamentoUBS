@@ -1,9 +1,7 @@
 package br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.auth;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,27 +10,23 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
 
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.BookingActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
-import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebError;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskPswd1;
 
-public class LoginActivity extends AppCompatActivity implements AsyncResponse {
+public class RememberPswdActivity1 extends AppCompatActivity implements AsyncResponse {
 
     MaterialDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_remember_password1);
 
         ImageView buttonClose = findViewById(R.id.button_close);
 
@@ -42,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
                 finish();
             }
         });
-        setupLogin();
+        setupAuth();
     }
 
     @Override
@@ -55,20 +49,20 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         super.onPause();
     }
 
-    private void setupLogin() {
+    private void setupAuth() {
         Button buttonLogin =
                 findViewById(R.id.button_login);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryLogin();
+                tryAuth();
             }
         });
     }
 
-    private void tryLogin() {
+    private void tryAuth() {
         EditText editTextCpf = findViewById(R.id.input_cpf);
-        EditText editTextPassword = findViewById(R.id.input_password);
+        EditText editTextPassword = findViewById(R.id.input_dateofbirth);
 
         if(!"".equals(editTextCpf.getText().toString())){
             showLoading();
@@ -80,9 +74,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
 
     }
 
-    private void sendCredentials(String cpf, String pass) {
-        WebTaskLogin asyncTask  = new WebTaskLogin(this,
-                cpf, pass);
+    private void sendCredentials(String cpf, String date) {
+        WebTaskPswd1 asyncTask  = new WebTaskPswd1(this,
+                cpf, date);
         asyncTask.delegate = this;
         asyncTask.execute();
     }
@@ -111,22 +105,22 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
 
 
     @Override
+    public void processFinishList(List<Consult> output) {}
+
+    @Override
     public void processFinishInteger(Integer o) {
         if(o == 200){
             hideLoading();
-            Intent intent = new Intent(LoginActivity.this, BookingActivity.class);
+            Intent intent = new Intent(RememberPswdActivity1.this,
+                    RememberPswdActivity2.class);
             startActivity(intent);
         }else{
             hideLoading();
             showError();
         }
-
     }
-
-    @Override
-    public void processFinishList(List<Consult> output) {}
-
 
     @Override
     public void processFinishString(String output) {}
 }
+

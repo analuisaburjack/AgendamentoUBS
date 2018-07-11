@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //DatePicker
         this.showDatePickerDialog();
 
-        test = new ConsultList_Test();
-
         //consultDAO = db.consultDao();
         //consults = requestList(MainActivity.this);
         //this to set delegate/listener back to this class
@@ -193,11 +191,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     @Override
-    public void processFinishLogin(Integer output) {}
+    public void processFinishInteger(Integer output) {}
 
     @Override
-    public void processFinishAdd(String output) {
-
-    }
+    public void processFinishString(String output) {}
 }
 
