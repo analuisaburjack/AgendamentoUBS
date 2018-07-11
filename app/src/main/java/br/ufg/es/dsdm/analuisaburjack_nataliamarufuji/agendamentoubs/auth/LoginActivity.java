@@ -20,6 +20,7 @@ import java.util.List;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.BookingActivity;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.MaskEditUtil;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.User;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
@@ -83,6 +84,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
     private void tryLogin() {
         EditText editTextCpf = findViewById(R.id.input_cpf);
         EditText editTextPassword = findViewById(R.id.input_password);
+
+        editTextCpf.addTextChangedListener(MaskEditUtil.mask(editTextCpf,
+                MaskEditUtil.FORMAT_CPF));
 
         if(!"".equals(editTextCpf.getText().toString())){
             showLoading();

@@ -18,6 +18,7 @@ import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.R;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.models.Consult;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.AsyncResponse;
 import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskLogin;
+import br.ufg.es.dsdm.analuisaburjack_nataliamarufuji.agendamentoubs.web.WebTaskPswd2;
 
 public class RememberPswdActivity2 extends AppCompatActivity implements AsyncResponse {
 
@@ -78,13 +79,13 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
     private void showMsg(){
         dialog = new MaterialDialog.Builder(this)
                 .content(getMsg())
-                .cancelable(false)
+                .cancelable(true)
                 .show();
     }
 
     private void sendCredentials(String pass1, String pass2) {
         System.out.println("entrou " + pass1 + pass2);
-        WebTaskLogin asyncTask  = new WebTaskLogin(this,
+        WebTaskPswd2 asyncTask  = new WebTaskPswd2(this,
                 pass1, pass2);
         asyncTask.delegate = this;
         asyncTask.execute();
@@ -99,7 +100,7 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
                 .show();
     }
 
-    private void hideLoading(){
+    private void hide(){
         if(dialog != null && dialog.isShowing()){
             dialog.hide();
             dialog = null;
@@ -117,9 +118,12 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
 
     @Override
     public void processFinishString(String o) {
-        hideLoading();
+        hide();
         setMsg(o);
         showMsg();
+
+        Intent intent = new Intent(RememberPswdActivity2.this, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
