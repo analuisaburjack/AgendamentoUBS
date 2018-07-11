@@ -85,8 +85,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         EditText editTextCpf = findViewById(R.id.input_cpf);
         EditText editTextPassword = findViewById(R.id.input_password);
 
-        editTextCpf.addTextChangedListener(MaskEditUtil.mask(editTextCpf,
-                MaskEditUtil.FORMAT_CPF));
+        //editTextCpf.addTextChangedListener(MaskEditUtil.mask(editTextCpf,MaskEditUtil.FORMAT_CPF));
 
         if(!"".equals(editTextCpf.getText().toString())){
             showLoading();
