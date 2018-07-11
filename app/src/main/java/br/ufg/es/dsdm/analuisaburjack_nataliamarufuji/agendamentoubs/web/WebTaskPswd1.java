@@ -24,7 +24,7 @@ import okhttp3.Response;
 
 public class WebTaskPswd1 extends AsyncTask<Void, Void, Integer> {
 
-    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com//newpswd";
+    private static String BASE_URL = "http://private-11b6d8-sus1.apiary-mock.com/newpswd";
     private String CPF = "cpf";
     private String DATE_OF_BIRTH = "birth";
     private static int TIMEOUT = 20;
@@ -96,7 +96,6 @@ public class WebTaskPswd1 extends AsyncTask<Void, Void, Integer> {
             Response response = client.newCall(request).execute();
             responseString =  response.body().string();
             responseHttpStatus = response.code();
-
             return responseHttpStatus;
         } catch (IOException e) {
             if(e.getClass() == SocketTimeoutException.class){
@@ -160,6 +159,6 @@ public class WebTaskPswd1 extends AsyncTask<Void, Void, Integer> {
     }
 
     HttpMethod getMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.POST;
     }
 }

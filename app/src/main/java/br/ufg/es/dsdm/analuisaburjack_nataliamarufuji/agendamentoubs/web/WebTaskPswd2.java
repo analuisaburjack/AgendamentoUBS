@@ -24,7 +24,7 @@ import okhttp3.Response;
 
 public class WebTaskPswd2 extends AsyncTask<Void, Void, String> {
 
-    private static String BASE_URL = "http://private-b45e5-sus1.apiary-mock.com//newpswd";
+    private static String BASE_URL = "http://private-11b6d8-sus1.apiary-mock.com/newpswd";
     private String NEWPSWD1 = "pswd1";
     private String NEWPSWD2 = "pswd2";
     private static int TIMEOUT = 20;
@@ -36,7 +36,7 @@ public class WebTaskPswd2 extends AsyncTask<Void, Void, String> {
     private int responseHttpStatus;
 
     private String pswd1 = "12345679";
-    private String pswd2 = "123456789";
+    private String pswd2 = "12345679";
     private String answer;
 
     public static MediaType JSON
@@ -150,6 +150,7 @@ public class WebTaskPswd2 extends AsyncTask<Void, Void, String> {
     }
 
     String getRequestBody() {
+        System.out.println("entrou no request body");
         Map<String,Object> requestMap = new HashMap<>();
         requestMap.put(NEWPSWD1, pswd1);
         requestMap.put(NEWPSWD2, pswd2);
@@ -172,6 +173,6 @@ public class WebTaskPswd2 extends AsyncTask<Void, Void, String> {
     }
 
     HttpMethod getMethod() {
-        return HttpMethod.GET;
+        return HttpMethod.PUT;
     }
 }

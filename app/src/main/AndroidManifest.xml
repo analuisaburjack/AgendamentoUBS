@@ -47,6 +47,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".auth.LoginActivity" />
         </activity>
+
+        <activity
+            android:name=".auth.RememberPswdActivity1"
+            android:parentActivityName=".auth.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".auth.LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".auth.RememberPswdActivity2"
+            android:parentActivityName=".auth.RememberPswdActivity1">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".auth.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

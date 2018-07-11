@@ -51,7 +51,7 @@ public class RememberPswdActivity1 extends AppCompatActivity implements AsyncRes
 
     private void setupAuth() {
         Button buttonLogin =
-                findViewById(R.id.button_login);
+                (Button) findViewById(R.id.button_fwd);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,12 +62,12 @@ public class RememberPswdActivity1 extends AppCompatActivity implements AsyncRes
 
     private void tryAuth() {
         EditText editTextCpf = findViewById(R.id.input_cpf);
-        EditText editTextPassword = findViewById(R.id.input_dateofbirth);
+        EditText editTextDateOfBirth = findViewById(R.id.input_dateofbirth);
 
         if(!"".equals(editTextCpf.getText().toString())){
             showLoading();
             sendCredentials(editTextCpf.getText().toString(),
-                    editTextPassword.getText().toString());
+                    editTextDateOfBirth.getText().toString());
         }else{
             editTextCpf.setError("Preencha o campo cpf");
         }
@@ -98,7 +98,7 @@ public class RememberPswdActivity1 extends AppCompatActivity implements AsyncRes
 
     private void showError(){
         dialog = new MaterialDialog.Builder(this)
-                .content("CPF ou senha inválido(s)")
+                .content("CPF ou data de nascimento inválido(s)")
                 .cancelable(false)
                 .show();
     }

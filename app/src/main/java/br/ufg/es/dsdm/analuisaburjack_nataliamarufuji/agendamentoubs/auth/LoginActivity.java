@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
                 finish();
             }
         });
+        setupButtonRememberPassword();
         setupLogin();
     }
 
@@ -62,6 +63,19 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
             @Override
             public void onClick(View v) {
                 tryLogin();
+            }
+        });
+    }
+
+    private void setupButtonRememberPassword() {
+        Button buttonRememberPassword = (Button)findViewById(R.id.button_forgot_password);
+        buttonRememberPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPassword = new Intent(LoginActivity.this,
+                        RememberPswdActivity1.class);
+                startActivity(intentPassword);
+
             }
         });
     }

@@ -52,7 +52,7 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
 
     private void setupAuth() {
         Button buttonLogin =
-                findViewById(R.id.button_login);
+                (Button)findViewById(R.id.button_resetPswd);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,12 +83,12 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
     }
 
     private void sendCredentials(String pass1, String pass2) {
+        System.out.println("entrou " + pass1 + pass2);
         WebTaskLogin asyncTask  = new WebTaskLogin(this,
                 pass1, pass2);
         asyncTask.delegate = this;
         asyncTask.execute();
 
-        showMsg();
     }
 
     private void showLoading(){
@@ -119,6 +119,7 @@ public class RememberPswdActivity2 extends AppCompatActivity implements AsyncRes
     public void processFinishString(String o) {
         hideLoading();
         setMsg(o);
+        showMsg();
     }
 
     @Override
